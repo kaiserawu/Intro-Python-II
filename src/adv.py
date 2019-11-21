@@ -40,7 +40,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player = Player('outside')
+player = Player(room['outside'])
 
 # Write a loop that:
 #
@@ -56,13 +56,34 @@ player = Player('outside')
 command = ''
 directions = ['n', 's', 'e', 'w']
 
-print(room[player.curr_room])
+print(player.curr_room)
 
 while command != 'q':
     command = input('What direction will you go in (n,s,e,w)? (Input "q" to quit) ')
     
     if command in directions:
-        print(f'Moving in direction {command}')
+        if command == 'n':
+            if player.curr_room.n_to == None:
+                print('Cannot go that way, please try another direction')
+            else:
+                player.curr_room = player.curr_room.n_to
+        elif command == 's':
+            if player.curr_room.s_to == None:
+                print('Cannot go that way, please try another direction')
+            else:
+                player.curr_room = player.curr_room.s_to
+        elif command == 'e':
+            if player.curr_room.e_to == None:
+                print('Cannot go that way, please try another direction')
+            else:
+                player.curr_room = player.curr_room.e_to
+        elif command == 'w':
+            if player.curr_room.w_to == None:
+                print('Cannot go that way, please try another direction')
+            else:
+                player.curr_room = player.curr_room.w_to
+        if player.curr_room != None:
+            print(player.curr_room)
     elif command == 'q':
         print('Thank you for playing!')
     else:
