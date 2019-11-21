@@ -62,28 +62,12 @@ while command != 'q':
     command = input('What direction will you go in (n,s,e,w)? (Input "q" to quit) ')
     
     if command in directions:
-        if command == 'n':
-            if player.curr_room.n_to == None:
-                print('Cannot go that way, please try another direction')
-            else:
-                player.curr_room = player.curr_room.n_to
-        elif command == 's':
-            if player.curr_room.s_to == None:
-                print('Cannot go that way, please try another direction')
-            else:
-                player.curr_room = player.curr_room.s_to
-        elif command == 'e':
-            if player.curr_room.e_to == None:
-                print('Cannot go that way, please try another direction')
-            else:
-                player.curr_room = player.curr_room.e_to
-        elif command == 'w':
-            if player.curr_room.w_to == None:
-                print('Cannot go that way, please try another direction')
-            else:
-                player.curr_room = player.curr_room.w_to
-        if player.curr_room != None:
+        attempted_move = getattr(player.curr_room, f'{command}_to')
+        if attempted_move is not None:
+            player.curr_room = attempted_move
             print(player.curr_room)
+        else:
+            print('\nCannot go that way, please try another direction\n')
     elif command == 'q':
         print('Thank you for playing!')
     else:
